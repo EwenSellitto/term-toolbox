@@ -1,0 +1,23 @@
+#!/bin/bash
+
+BASE_DIR="${1:-$PWD}"
+DEPTH="${2:-1}"
+
+if [[ "$BASE_DIR" == "" ]]; then
+  echo "No directory provided"
+  exit 1
+elif [[ "$BASE_DIR" == '.' ]]; then
+    BASE_DIR="$PWD"
+elif [[ "$BASE_DIR" == '..' ]]; then
+    BASE_DIR="$PWD/.."
+fi
+
+ESCAPED_BASE_DIR=$(echo "$BASE_DIR" | sed 's_/_\\/_g')
+SUBDIRS=$(find $BASE_DIR -maxdepth $DEPTH -type d \
+          ! -path '*/.git*' \
+          ! -path '*/.idea/*' \
+          ! -path '*/.*' \
+          ! -path '*/node_modules/*' | \
+          sed "s|$ESCAPED_BASE_DIR||g")
+
+cd "$BASE_DIR$(echo "$SUBDIRS" | fzf)"
