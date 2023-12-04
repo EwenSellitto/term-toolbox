@@ -55,7 +55,7 @@ function install_mac() {
 }
 
 function install_fedora() {
-    sudo dnf install $PACKAGE
+    sudo dnf install $PACKAGE -y
     which brew && brew install $BREW_PACKAGE
     other_install
 }
@@ -70,10 +70,10 @@ echo $osInfo
 
 # Switch case to determine OS and run the corresponding function
 case "$osInfo" in
-    *fedora*)
+    *fedora*|*fc3*)
         install_fedora
         ;;
-    *arch*|*Manjaro*|*Arch*|*manjaro*|*fc3*)
+    *arch*|*Manjaro*|*Arch*|*manjaro*)
         install_arch
         ;;
     *Darwin*)
