@@ -65,7 +65,7 @@ function install_mac() {
 }
 
 function install_fedora() {
-    # sudo dnf install $PACKAGE -y
+    sudo dnf install $PACKAGE -y
     which brew && brew install $BREW_PACKAGE
     other_install
 }
