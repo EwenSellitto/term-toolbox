@@ -29,6 +29,7 @@ function add_zsh_plugin() {
 
 function other_install() {
     # oh-my-zsh
+    echo 'istalling oh-my-zsh and plugins'
     echo 'exit 0' | $(sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)")
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
     add_zsh_plugin zsh-syntax-highlighting
@@ -37,13 +38,18 @@ function other_install() {
     add_zsh_plugin zsh-autosuggestions
 
     # tmux
+    echo 'installing tmux and plugins'
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-    cp ./tmux.conf $HOME/.config/tmux/tmux.conf
+    mkdir -p $HOME/.config/tmux
+    cp tmux.conf $HOME/.config/tmux/tmux.conf
 
     # kitty
-    # curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+    echo 'installing kitty'
+    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 
     # cdsearch
+    echo 'installing cdsearch'
+    mkdir -p $HOME/.local/bin
     cp cdsearch $HOME/.local/bin/cdsearch
     echo 'export PATH="$HOME/.local/bin:$PATH"' >> $HOME/.zshrc
 }
