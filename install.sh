@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PACKAGE="lsd bat exa ripgrep fzf tmux zsh tig neofetch btop"
+PACKAGE="lsd bat exa ripgrep fzf tmux zsh tig neofetch btop util-linux-user"
 BREW_PACKAGE="scc"
 RED='\033[0;31m'
 YELLOW='\033[1;33m'
@@ -48,13 +48,16 @@ function other_install() {
     cp tmux.conf $HOME/.config/tmux/tmux.conf
 
     # kitty
+    mkdir -p $HOME/.local/
     echo -e "${GREEN}installing kitty${NC}"
     curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+    mkdir -p $HOME/.config/kitty && cp kitty.conf $HOME/.config/kitty/kitty.conf
 
     # cdsearch
     echo -e "${GREEN}installing cdsearch${NC}"
     mkdir -p $HOME/.local/bin
     cp cdsearch $HOME/.local/bin/cdsearch
+    echo 'alias cdsearch=". cdsearch"' >> $HOME/.zshrc
     echo 'export PATH="$HOME/.local/bin:$PATH"' >> $HOME/.zshrc
 }
 
@@ -68,6 +71,7 @@ function install_fedora() {
     sudo dnf install $PACKAGE -y
     which brew && brew install $BREW_PACKAGE
     other_install
+    sudo chsh -s $(which zsh)
 }
 
 function install_arch() {
