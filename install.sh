@@ -50,7 +50,7 @@ function other_install() {
     # kitty
     mkdir -p $HOME/.local/
     echo -e "${GREEN}installing kitty${NC}"
-    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+    # curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
     mkdir -p $HOME/.config/kitty && cp kitty.conf $HOME/.config/kitty/kitty.conf
 
     # cdsearch
@@ -69,6 +69,7 @@ function install_mac() {
 
 function install_fedora() {
     sudo dnf install $PACKAGE -y
+    sudo dnf install kitty -y
     which brew && brew install $BREW_PACKAGE
     other_install
     sudo chsh -s $(which zsh)
